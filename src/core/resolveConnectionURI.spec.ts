@@ -53,7 +53,7 @@ describe("resolveConnectionURI.ts tests", () => {
     it("expect to resolve a connection uri only connectionString", () => {
       // arranges
       const config: IMongoDBConnectorConfig = {
-        connectionURL: "mongodb://one:secret@localhost:27017",
+        connection: "mongodb://one:secret@localhost:27017",
         host: "localhost",
         password: "password",
         port: 27017,
