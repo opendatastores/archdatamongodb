@@ -1,3 +1,3 @@
 export interface IMongoDBConnectOptions {
-  database?: string;
+  dbName?: string;
 }

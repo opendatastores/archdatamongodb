@@ -1,3 +1,4 @@
+/*
 import { expect } from "chai";
 import { DataConnector } from "./DataConnector";
 import { IMongoDBConnectorConfig } from "./IMongoDBConnectorConfig";
@@ -24,3 +25,4 @@ describe("DataConnector.ts tests", () => {
     });
   });
 });
+*/

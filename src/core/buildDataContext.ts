@@ -1,27 +1,26 @@
-import { Db, ObjectId } from "mongodb";
-import { IMongoDBConnectOptions } from "../IMongoDBConnectOptions";
-import { IMongoDBConnectorConfig } from "../IMongoDBConnectorConfig";
+import {
+  Db,
+  MongoClient,
+  ObjectId,
+} from "mongodb";
 import { IMongoDBDataContext } from "../IMongoDBDataContext";
-import { DBClient } from "./DBClient";
 
-export const buildDataContext = (config: IMongoDBConnectorConfig, opts: IMongoDBConnectOptions = {}): IMongoDBDataContext =>
-  ((Config, Options): IMongoDBDataContext => {
-    let dbInstance: Db;
-    const client = DBClient.create(Config);
-    const database = Options.database || Config.database;
+export const buildDataContext = (client: MongoClient, dbName: string): IMongoDBDataContext =>
+  ((DBClient, DBName): IMongoDBDataContext => {
+    let DBInstance: Db;
 
     const resolveDB = (): Promise<Db> => new Promise((resolve, reject) => {
-      if (dbInstance === undefined) {
-        client.connect()
+      if (DBInstance === undefined) {
+        DBClient.connect()
           .then(() => {
-            dbInstance = client.db(database);
-            resolve(dbInstance);
+            DBInstance = DBClient.db(DBName);
+            resolve(DBInstance);
           })
           .catch((error) => {
             reject(error);
           });
       } else {
-        resolve(dbInstance);
+        resolve(DBInstance);
       }
     });
 
@@ -32,7 +31,7 @@ export const buildDataContext = (config: IMongoDBConnectorConfig, opts: IMongoDB
     };
 
     const dataContext: IMongoDBDataContext = {
-      close: () => client.close(true),
+      close: () => DBClient.close(true),
       createItem: async (collection, item, options = {}) => {
         const Collection = await resolveCollection(collection);
         const { result } = await Collection.insertOne(item, options) as any;
@@ -73,6 +72,6 @@ export const buildDataContext = (config: IMongoDBConnectorConfig, opts: IMongoDB
     };
 
     return dataContext;
-  })(config, opts);
+  })(client, dbName);
 
 Object.freeze(buildDataContext);
