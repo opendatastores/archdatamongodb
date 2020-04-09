@@ -1,6 +1,6 @@
 {
   "name": "archdatamongodb",
-  "version": "3.0.0-alpha.64",
+  "version": "3.0.0-alpha.65",
   "description": "Providing Data Stores using MongoDB",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -30,11 +30,11 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdatamongodb",
   "dependencies": {
-    "archdatacore": "3.0.0-alpha.64",
-    "mongodb": "3.5.2"
+    "archdatacore": "3.0.0-alpha.65",
+    "mongodb": "3.5.5"
   },
   "devDependencies": {
-    "@types/mongodb": "3.3.14",
-    "archdevts": "19.12.24"
+    "@types/mongodb": "3.5.5",
+    "archdevts": "20.4.1"
   }
 }

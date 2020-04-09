@@ -10,12 +10,11 @@ const DefaultOptions: MongoClientOptions = {
 
 export const Connector: DataConnector<IMongoDBConnectorConfig, IMongoDBConnectOptions> = (config) => {
   const URI = config.connection;
-  const Options = Object.assign({}, DefaultOptions, config.options || {});
-  const { dbName } = config;
+  const Options = Object.assign({}, DefaultOptions, (config.options || {}));
   const DBClient: MongoClient = new MongoClient(URI, Options);
 
   return {
-    connect: (options) => createMongoDBContext(DBClient, dbName, Options),
+    connect: (options = {}) => createMongoDBContext(DBClient, config.dbName, Object.assign({}, Options, options)),
   };
 };
 
