@@ -33,6 +33,12 @@ export const createMongoDBContext = (config: IMongoDBConnectorConfig, Options: I
   };
 
   const dataContext: IMongoDBDataContext = {
+    client: async () =>
+      ConnectClient(),
+    db: async () =>
+      ConnectDB(),
+    newID: () =>
+      new ObjectID(),
     close: async () => {
       const client = await ConnectClient();
       client.close(true);
@@ -43,10 +49,6 @@ export const createMongoDBContext = (config: IMongoDBConnectorConfig, Options: I
 
       return { affected: result.n };
     },
-    db: async () =>
-      ConnectDB(),
-    newID: () =>
-      new ObjectID(),
     queryByID: async (collection, id, options = {}) => {
       const Collection = await ConnectCollection(collection);
       const filter = { _id: id };
