@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "@types/mongodb": "3.5.5",
-    "archdevts": "20.4.1"
+    "archdevts": "20.12.19"
   }
 }
